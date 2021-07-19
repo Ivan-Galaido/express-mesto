@@ -15,12 +15,14 @@ const getProfile = (req, res) => {
       if (!user) {
         res.status(ERROR_NOT_FOUND).send({ message: 'Запрашиваемый пользователь не найден' });
       }
+    else
       res.status(200).send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id профиля' });
       }
+    else
       res.status(500).send(err);
     });
 };
@@ -33,6 +35,7 @@ const createUser = (req, res) => {
       if (err.name === 'ValidationError') {
         res.status(ERROR_VALIDATION).send({ message: 'Данные не прошли валидацию' });
       }
+    else
       res.status(500).send(err);
     });
 };
@@ -45,6 +48,7 @@ const updateUser = (req, res) => {
       if (!user) {
         res.status(ERROR_NOT_FOUND).send({ message: 'Запрашиваемый пользователь не найден' });
       }
+    else
       res.status(200).send(user);
     })
     .catch((err) => {
@@ -53,6 +57,7 @@ const updateUser = (req, res) => {
       } else if (err.name === 'CastError') {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id профиля' });
       }
+    else
       res.status(500).send(err);
     });
 };
@@ -65,6 +70,7 @@ const updateAvatar = (req, res) => {
       if (!user) {
         res.status(ERROR_NOT_FOUND).send({ message: 'Запрашиваемый пользователь не найден' });
       }
+    else
       res.status(200).send(user);
     })
     .catch((err) => {
@@ -73,6 +79,7 @@ const updateAvatar = (req, res) => {
       } else if (err.name === 'CastError') {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id профиля' });
       }
+    else
       res.status(500).send(err);
     });
 };
