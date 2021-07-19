@@ -19,6 +19,7 @@ const createCard = (req, res) => {
       if (err.name === 'ValidationError') {
         res.status(ERROR_VALIDATION).send({ message: 'Данные не прошли валидацию' });
       }
+    else
       res.status(500).send(err);
     });
 };
@@ -29,12 +30,14 @@ const deleteCard = (req, res) => {
       if (!card) {
         res.status(ERROR_NOT_FOUND).send({ message: 'Запрашиваемая карточка не найдена' });
       }
+    else
       res.status(200).send('Карточка удалена');
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id карточки' });
       }
+    else
       res.status(500).send(err);
     });
 };
@@ -45,14 +48,16 @@ const putLike = (req, res) => {
     { new: true })
     .then((card) => {
       if (!card) {
-        res.status(ERROR_VALIDATION).send({ message: 'Нет карточки по заданному id' });
+        res.status(ERROR_NOT_FOUND).send({ message: 'Нет карточки по заданному id' });
       }
+    else
       res.status(200).send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id карточки' });
       }
+    else
       res.status(500).send(err);
     });
 };
@@ -65,14 +70,16 @@ const deleteLike = (req, res) => {
   )
     .then((card) => {
       if (!card) {
-        res.status(ERROR_VALIDATION).send({ message: 'Нет карточки по заданному id' });
+        res.status(ERROR_NOT_FOUND).send({ message: 'Нет карточки по заданному id' });
       }
+    else
       res.status(200).send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id карточки' });
       }
+    else
       res.status(500).send(err);
     });
 };
