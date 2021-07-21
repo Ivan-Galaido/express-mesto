@@ -6,7 +6,7 @@ const ERROR_NOT_FOUND = 404;
 const getUsers = (req, res) => {
   User.find({})
     .then((users) => res.status(200).send(users))
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err.message));
 };
 
 const getProfile = (req, res) => {
@@ -23,7 +23,7 @@ const getProfile = (req, res) => {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id профиля' });
       }
     else
-      res.status(500).send(err);
+      res.status(500).send(err.message);
     });
 };
 
@@ -36,7 +36,7 @@ const createUser = (req, res) => {
         res.status(ERROR_VALIDATION).send({ message: 'Данные не прошли валидацию' });
       }
     else
-      res.status(500).send(err);
+      res.status(500).send(err.message);
     });
 };
 
@@ -58,7 +58,7 @@ const updateUser = (req, res) => {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id профиля' });
       }
     else
-      res.status(500).send(err);
+      res.status(500).send(err.message);
     });
 };
 
@@ -80,7 +80,7 @@ const updateAvatar = (req, res) => {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id профиля' });
       }
     else
-      res.status(500).send(err);
+      res.status(500).send(err.message);
     });
 };
 
