@@ -6,7 +6,7 @@ const ERROR_NOT_FOUND = 404;
 const getCards = (req, res) => {
   Card.find({})
     .then((cards) => res.status(200).send(cards))
-    .catch((err) => res.status(500).send(err.message));
+    .catch((err) => res.status(500).send({message: err.message}));
 };
 
 const createCard = (req, res) => {
@@ -20,7 +20,7 @@ const createCard = (req, res) => {
         res.status(ERROR_VALIDATION).send({ message: 'Данные не прошли валидацию' });
       }
     else
-      res.status(500).send(err.message);
+      res.status(500).send({message: err.message});
     });
 };
 
@@ -38,7 +38,7 @@ const deleteCard = (req, res) => {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id карточки' });
       }
     else
-      res.status(500).send(err.message);
+      res.status(500).send({message: err.message});
     });
 };
 
@@ -58,7 +58,7 @@ const putLike = (req, res) => {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id карточки' });
       }
     else
-      res.status(500).send(err.message);
+      res.status(500).send({message: err.message});
     });
 };
 
@@ -80,7 +80,7 @@ const deleteLike = (req, res) => {
         res.status(ERROR_VALIDATION).send({ message: 'Невалидный id карточки' });
       }
     else
-      res.status(500).send(err.message);
+      res.status(500).send({message: err.message});
     });
 };
 
