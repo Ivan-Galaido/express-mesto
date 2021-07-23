@@ -17,9 +17,6 @@ app.use((req, res, next) => {
 });
 app.use('/', usersRoutes);
 app.use('/', cardRoutes);
-app.use('/*', (req, res) => {
-  throw new NotFoundError('Cтраница не найдена');
-});
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
