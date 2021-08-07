@@ -1,17 +1,50 @@
-const router = require('express').Router();
+const express = require('express');
+const { celebrate, Joi } = require('celebrate');
+const { default: validator } = require('validator');
 
+const usersRoutes = express.Router();
 const {
-  getUsers, getProfile, createUser, updateUser, updateAvatar,
+  getUsers,
+  getUserById,
+  updateProfile,
+  updateAvatar,
+  getMyProfile,
 } = require('../controllers/users');
 
-router.get('/users', getUsers);
+usersRoutes.get('/', getUsers);
+usersRoutes.get('/me', getMyProfile);
 
-router.get('/users/:userId', getProfile);
+usersRoutes.get('/:userId', celebrate({
+  params: Joi.object().keys({
+    userId: Joi.string().hex().length(24),
+  }),
+}), getUserById);
 
-router.post('/users', createUser);
+usersRoutes.patch('/me', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
+  }),
+}), updateProfile);
 
-router.patch('/users/me', updateUser);
+usersRoutes.patch(
+  '/me/avatar',
+  celebrate({
+    body: Joi.object().keys({
+      avatar: Joi.string()
+        .required()
+        .custom((value, helpers) => {
+          if (validator.isURL(value)) {
+            return value;
+          }
+          return helpers.message('Заполните поле валидным URL');
+        })
+        .message({
+          'string.required': 'Поле должны быть заполнено',
+        }),
+    }),
+  }),
+  updateAvatar,
+);
 
-router.patch('/users/me/avatar', updateAvatar);
-
-module.exports = router;
+exports.usersRoutes = usersRoutes;

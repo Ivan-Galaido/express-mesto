@@ -1,17 +1,55 @@
-const router = require('express').Router();
+const express = require('express');
+const { celebrate, Joi } = require('celebrate');
+const { default: validator } = require('validator');
 
+const cardsRoutes = express.Router();
 const {
-  getCards, createCard, deleteCard, putLike, deleteLike,
+  getCards,
+  createCard,
+  deleteCard,
+  likeCard,
+  dislikeCard,
 } = require('../controllers/cards');
 
-router.get('/cards', getCards);
+cardsRoutes.get('/', getCards);
 
-router.post('/cards', createCard);
+cardsRoutes.post(
+  '/',
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().required().min(2).max(30),
+      link: Joi.string()
+        .required()
+        .custom((value, helpers) => {
+          if (validator.isURL(value)) {
+            return value;
+          }
+          return helpers.message('Заполните поле валидным URL');
+        })
+        .message({
+          'string.required': 'Поле должны быть заполнено',
+        }),
+    }),
+  }),
+  createCard,
+);
 
-router.delete('/cards/:cardId', deleteCard);
+cardsRoutes.delete('/:cardId', celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().hex().length(24),
+  }),
+}), deleteCard);
 
-router.put('/cards/:cardId/likes', putLike);
+cardsRoutes.put('/:cardId/likes', celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().hex().length(24),
+  }),
+}), likeCard);
 
-router.delete('/cards/:cardId/likes', deleteLike);
+cardsRoutes.delete('/:cardId/likes', celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().hex().length(24),
+  }),
+}), dislikeCard);
 
-module.exports = router;
+exports.cardsRoutes = cardsRoutes;
