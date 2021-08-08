@@ -13,7 +13,7 @@ exports.Auth = (req, res, next) => {
     throw new UnauthorizedError('Необходима авторизация');
   }
 
-  const token = authorization.replace('Bearer ', '');
+  const token = req.cookies.userToken;
   let payload;
 
   try {
