@@ -20,7 +20,7 @@ exports.Auth = (req, res, next) => {
   // верифицируем токен
     payload = jwt.verify(token, `${NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'}`);
   } catch (err) {
-    throw new ForbiddenError('Не достаточно прав');
+    throw new UnauthorizedError('Необходима авторизация');
   }
 
   req.user = payload; // записываем пейлоуд в объект запроса
