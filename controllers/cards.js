@@ -39,7 +39,7 @@ exports.deleteCard = (req, res, next) => {
     })
     .then((card) => {
       if (card.owner.toString() !== userId) {
-        throw new UnauthorizedError(
+        throw new ForbiddenError(
           'Это не ваша карточка. Вы не можете удалять чужие',
         );
       }
