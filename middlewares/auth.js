@@ -7,6 +7,7 @@ const ForbiddenError = require('../errors/403-forbidden-error');
 dotenv.config();
 const { JWT_SECRET, NODE_ENV } = process.env;
 
+exports.Auth = (req, res, next) => { 
 
   const token = req.cookies.userToken;
   let payload;
