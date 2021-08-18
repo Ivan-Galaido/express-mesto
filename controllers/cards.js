@@ -8,9 +8,7 @@ exports.getCards = (req, res, next) => {
     .then((cards) => {
       if (cards.length >= 1) {
         res.send(cards);
-      } else {
-        throw new NotFoundError('Карточки не найдены');
-      }
+      } 
     })
     .catch(next);
 };
