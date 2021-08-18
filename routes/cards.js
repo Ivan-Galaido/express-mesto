@@ -21,7 +21,7 @@ cardsRoutes.post(
       link: Joi.string()
         .required()
         .custom((value, helpers) => {
-          if (validator.isURL(value, {require_protocol: true})) {
+          if (validator.isURL(value, { require_protocol: true })) {
             return value;
           }
           return helpers.message('Заполните поле валидным URL');
