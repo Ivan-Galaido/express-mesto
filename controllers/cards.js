@@ -1,5 +1,4 @@
 const BadRequestError = require('../errors/400-bad-request-error');
-const UnauthorizedError = require('../errors/401-unauthorized-error');
 const NotFoundError = require('../errors/404-not-found-error');
 const Card = require('../models/card');
 
