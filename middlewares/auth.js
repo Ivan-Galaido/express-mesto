@@ -6,7 +6,7 @@ const UnauthorizedError = require('../errors/401-unauthorized-error');
 dotenv.config();
 const { JWT_SECRET, NODE_ENV } = process.env;
 
-exports.Auth = (req, res, next) => {  
+exports.Auth = (req, res, next) => {
   const token = req.cookies.userToken;
   let payload;
 
