@@ -16,8 +16,7 @@
     "run": "^1.4.0",
     "start": "^5.1.0",
     "validator": "^13.6.0",
-    "winston": "^3.3.3",
-    "deploy": "npm run build && scp -r ./build/* praktikum@178.154.193.83://Users/ivan/Desktop/react-mesto-api-full-main/frontend"
+    "winston": "^3.3.3"
   },
   "scripts": {
     "lint": "npx eslint .",
